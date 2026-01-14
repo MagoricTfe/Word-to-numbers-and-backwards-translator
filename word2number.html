@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Conversor de palabra a codigo ASCii - 97 en decimal y binario. Y viceversa. </title>
+</head>
+
+<body>
+
+<br>
+<b>
+Conversor de palabra a sus equivalentes en (codigos ASCII - 97) decimal y binario.
+<br><br>
+La 'a' = 0 en decimal y 00000 en binario
+<br>
+La 'z' = 25 en decimal y 11001 en binario.
+<br><br>
+También lo hace de forma inversa.
+<br>
+<br>
+LAS PALABRAS USADAS HAN DE SER EN minusculas Y SIN TILDES. 
+<br>
+<br>
+NO GESTIONA ERRORES. EL USUARIO HA DE ESTAR SEGURO QUE PONE LOS VALORES CORRECTOS.
+</b>
+<br>
+<br>
+<br>
+
+
+  <label for="palabra">Palabra:</label>
+
+  <input type="text" id="palabra" name="palabra" />  
+  <button onclick="txt()" id="btn0"> >> </button>
+  <br> <br>
+
+  <label for="Decimal">Decimal (Ejemplo: 7,14,11,0):</label>  
+
+  <input type="text" id="dec_num" name="dec_num" />  
+  <button onclick="dec_num()" id="btn1"> >> </button>
+
+  <br>  <br>
+
+  <label for="Binario">Binario (Ejemplo: 00111,01110,01011,00000):</label> 
+ 
+  <input type="text" id="bin_num" name="bin_num" />  
+  <button onclick="bin_n()"  id="btn2"> >> </button>
+
+  <br><br>   
+
+  <p>Salida: <span id="salida"></span></p>
+
+  <script>
+   
+    const input = document.getElementById('palabra');
+    const btn = document.getElementById('btn0');
+
+    const input1 = document.getElementById('dec_num');
+    const btn1 = document.getElementById('btn1');
+
+    const input2 = document.getElementById('bin_num');
+    const btn2 = document.getElementById('btn2');
+
+    const salida = document.getElementById('salida');
+
+
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    //********* Conversion texto a decimal y binario ****************
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+    function convertToBinary(number, bin) 
+    {
+      if (number > 0) 
+      {
+        return convertToBinary(parseInt(number / 2)) + (number % 2)
+      };
+      
+      return '';
+    }
+    
+    function txt2numbers(s)
+    {
+       let l=s.length;
+       let x=0;
+       let x1=0;
+       let c;
+       let salida=" <br> ";
+       let bin;
+       let biss="";
+ 
+       console.log("c_f:\n");
+
+       for(x=0; x<l; x++) 
+       {
+        c=s[x].charCodeAt(0);
+        c=c-97; 
+
+        bin=convertToBinary(c);
+        bins=bin;
+        for(x1=bins.length; x1<5; x1++) bins="0"+bins;
+
+        salida+=s[x]+" : Decimal: "+c+" => Binario: "+ bins+" <br> ";
+       
+       }         
+       
+       console.log(salida); 
+       return salida;
+    }
+
+
+    function txt()
+    {
+        let out_data;
+        let txt=input.value.trim();  
+      
+        out_data=txt2numbers(txt);  
+      
+        document.getElementById("salida").innerHTML=out_data;
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //********* Conversion texto a decimal y binario ****************
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    //************ Conversion decimal a texto ***********************
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+    function dec2txt(d)
+    {
+        //String.fromCharCode(65,66,67); // returns 'ABC'
+        
+        let k=0;
+        let c="";
+
+        const numbs=d.split(",");
+
+        for(x=0; x<numbs.length; x++)
+        {
+            k=Number(numbs[x]);
+            k+=97;
+                  
+            c+=String.fromCharCode(k); 
+        };
+        
+        console.log(c);
+
+        return c;
+    }
+
+    function dec_num()
+    {
+        let out_data;
+        let txt=input1.value.trim();  
+      
+        out_data=dec2txt(txt);  
+      
+        document.getElementById("salida").innerHTML=out_data;       
+    }
+
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //************ Conversion decimal a texto ***********************
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+    //************ Conversion binario a texto ***********************
+    //vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+
+    function bin2txt(d)
+    {       
+        let k=0;
+        let c="";
+
+        const numbs=d.split(",");
+
+        for(x=0; x<numbs.length; x++)
+        {
+            k=parseInt(numbs[x],2);
+            k+=97;
+                  
+            c+=String.fromCharCode(k); 
+        };
+        
+        console.log(c);
+
+        return c;
+    }
+
+    function bin_n()
+    {
+        let out_data;
+        let txt=input2.value.trim();  
+      
+        out_data=bin2txt(txt);  
+      
+        document.getElementById("salida").innerHTML=out_data;       
+    }
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    //************ Conversion binario a texto ***********************
+    //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  </script>
+</body>
+</html>
+
